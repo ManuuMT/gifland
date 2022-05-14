@@ -1,5 +1,8 @@
 .search {
-  height: 100px;
-  width: 200px;
-  background-color: blue;
+  display: flex;
+  justify-content: center;
+}
+
+.search-input {
+  width: 300px;
 }
