@@ -4,19 +4,11 @@ import Gif from "../Gif/Gif";
 import getGifs from "../../services/getGifs";
 
 const Search = () => {
+  // Hooks
   const [input, setInput] = useState("");
-  const [array, setArray] = useState();
+  const [array, setArray] = useState([]);
 
-  async function callAPI(keyword) {
-    const gifs = await getGifs(keyword);
-    setTimeout(() => {
-      setArray(gifs);
-    }, 2000);
-  }
-  function showGifs() {
-    return array.map((singleGif, i) => <Gif source={singleGif} imgKey={i} />);
-  }
-
+  // Methods
   const handleChange = (ev) => {
     setInput(ev.target.value);
   };
@@ -25,6 +17,19 @@ const Search = () => {
     ev.preventDefault();
     callAPI(input);
     setInput("");
+  };
+
+  async function callAPI(keyword) {
+    setArray([]);
+    setTimeout(() => {
+      console.log("Loading new gifs...");
+    }, 1000);
+    const gifs = await getGifs(keyword);
+    setArray(gifs);
+  }
+
+  const showGifs = () => {
+    return array.map((singleGif, i) => <Gif source={singleGif} imgKey={i} />);
   };
 
   return (
@@ -39,7 +44,7 @@ const Search = () => {
             placeholder="Search something funny"
           ></input>
         </form>
-        {array == null ? "Nothing to show yet..." : showGifs()}
+        {array === [] ? "Nothing to show yet..." : showGifs()}
       </div>
     </>
   );
