@@ -1,21 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Search.scss";
 import Gif from "../Gif/Gif";
 import getGifs from "../../services/getGifs";
 
 const Search = () => {
   const [input, setInput] = useState("");
-  const [array, setArray] = useState([""]);
+  const [array, setArray] = useState();
 
   async function callAPI(keyword) {
     const gifs = await getGifs(keyword);
     setArray(gifs);
-    console.log(array);
   }
-
-  useEffect(() => {
-    callAPI();
-  }, []);
 
   const handleChange = (ev) => {
     setInput(ev.target.value);
@@ -23,7 +18,8 @@ const Search = () => {
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    setArray(callAPI(input));
+    callAPI(input);
+    //console.log(callAPI(input));
     setInput("");
   };
 
@@ -36,12 +32,12 @@ const Search = () => {
             type="text"
             className="search-input"
             value={input}
-            placeholder="Search something funny..."
+            placeholder="Search something funny"
           ></input>
         </form>
-        {array != ""
-          ? array.map((singleGif, i) => <Gif source={singleGif} imgKey={i} />)
-          : "No hay gifs"}
+        {array == null
+          ? "Nothing to show yet..."
+          : array.map((singleGif, i) => <Gif source={singleGif} imgKey={i} />)}
       </div>
     </>
   );
