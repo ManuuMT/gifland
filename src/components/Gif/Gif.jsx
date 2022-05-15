@@ -1,38 +1,23 @@
 import React, { useState, useEffect } from "react";
-import getGifs from "../../services/getGifs";
 import "./Gif.scss";
-//import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
-const Gif = () => {
+const Gif = (props) => {
   const [gifData, setGifData] = useState([]);
-
-  useEffect(() => {
-    //console.log(props.keyword);
-    //setGifKey(props.keyword);
-
-    getGifs().then((gifs) => setGifData(gifs));
-  }, []);
-
   // View builder
   return (
-    <div className="container">
-      <div className="gif-search mt-5">
-        {gifData.map((singleGif, i) => (
-          <img
-            className="gif mx-2 my-2"
-            src={singleGif}
-            alt="gif"
-            key={i}
-          ></img>
-        ))}
-      </div>
-    </div>
+    <img
+      className="gif mx-2 my-2"
+      src={props.source}
+      alt="gif"
+      key={props.imgKey}
+    ></img>
   );
 };
-/*
+
 Gif.propTypes = {
-  key: PropTypes.string,
+  source: PropTypes.string,
+  imgKey: PropTypes.number,
 };
-*/
 
 export default Gif;
