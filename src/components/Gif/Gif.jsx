@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Gif.scss";
 import PropTypes from "prop-types";
 
 const Gif = (props) => {
-  const [gifData, setGifData] = useState([]);
   // View builder
   return (
     <img

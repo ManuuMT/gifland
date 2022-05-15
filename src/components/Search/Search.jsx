@@ -9,7 +9,12 @@ const Search = () => {
 
   async function callAPI(keyword) {
     const gifs = await getGifs(keyword);
-    setArray(gifs);
+    setTimeout(() => {
+      setArray(gifs);
+    }, 2000);
+  }
+  function showGifs() {
+    return array.map((singleGif, i) => <Gif source={singleGif} imgKey={i} />);
   }
 
   const handleChange = (ev) => {
@@ -19,7 +24,6 @@ const Search = () => {
   const handleSubmit = (ev) => {
     ev.preventDefault();
     callAPI(input);
-    //console.log(callAPI(input));
     setInput("");
   };
 
@@ -35,9 +39,7 @@ const Search = () => {
             placeholder="Search something funny"
           ></input>
         </form>
-        {array == null
-          ? "Nothing to show yet..."
-          : array.map((singleGif, i) => <Gif source={singleGif} imgKey={i} />)}
+        {array == null ? "Nothing to show yet..." : showGifs()}
       </div>
     </>
   );
